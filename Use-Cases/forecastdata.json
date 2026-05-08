@@ -1,0 +1,211 @@
+{
+  "_meta": {
+    "description": "Synthetic 13-week cash flow forecast data — no real client data",
+    "generated_by": "Epoch Frameworks LLC | FIN-01 | DACR v2.6",
+    "forecast_run_date": "2026-05-04",
+    "opening_cash_balance": 1240000,
+    "source_tables": ["F03B11", "F0411", "F5116", "F0902"],
+    "builder_archetype": "Semi-Custom Regional",
+    "note": "All company names, job numbers, and amounts are synthetic. For portfolio demonstration only."
+  },
+  "opening_balance": 1240000,
+  "weeks": [
+    {
+      "week": 1,
+      "label": "May 5–9",
+      "ar_inflows": 285000,
+      "ap_outflows": 198000,
+      "committed_outflows": 45000,
+      "net": 42000,
+      "running_balance": 1282000,
+      "high_variance_flag": false,
+      "variance_note": null,
+      "inflow_detail": [
+        { "source": "Construction Lender Draw — Job 5042 (Lot 14)", "amount": 185000, "type": "lender_draw" },
+        { "source": "Homebuyer Closing — Lot 22 Ridgeline", "amount": 78000, "type": "closing" },
+        { "source": "Misc A/R", "amount": 22000, "type": "other" }
+      ],
+      "outflow_detail": [
+        { "source": "Subcontract Run — Framing trades", "amount": 122000, "type": "subcontract" },
+        { "source": "Material invoices — roofing", "amount": 51000, "type": "material" },
+        { "source": "Overhead / G&A", "amount": 25000, "type": "overhead" },
+        { "source": "F5116 committed conversion — Job 5038", "amount": 45000, "type": "committed" }
+      ]
+    },
+    {
+      "week": 2,
+      "label": "May 12–16",
+      "ar_inflows": 310000,
+      "ap_outflows": 241000,
+      "committed_outflows": 38000,
+      "net": 31000,
+      "running_balance": 1313000,
+      "high_variance_flag": false,
+      "variance_note": null,
+      "inflow_detail": [
+        { "source": "Construction Lender Draw — Job 5038 (Lot 9)", "amount": 210000, "type": "lender_draw" },
+        { "source": "Homebuyer Closing — Lot 7 Creekside", "amount": 68000, "type": "closing" },
+        { "source": "Misc A/R", "amount": 32000, "type": "other" }
+      ],
+      "outflow_detail": [
+        { "source": "Subcontract Run — Electrical / HVAC", "amount": 148000, "type": "subcontract" },
+        { "source": "Material invoices — windows", "amount": 62000, "type": "material" },
+        { "source": "Overhead / G&A", "amount": 31000, "type": "overhead" },
+        { "source": "F5116 committed conversion — Job 5044", "amount": 38000, "type": "committed" }
+      ]
+    },
+    {
+      "week": 3,
+      "label": "May 19–23",
+      "ar_inflows": 84000,
+      "ap_outflows": 189000,
+      "committed_outflows": 52000,
+      "net": -157000,
+      "running_balance": 1156000,
+      "high_variance_flag": true,
+      "variance_note": "⚠ HIGH VARIANCE — Week 3 cash position $84K below prior forecast. Primary driver: construction draw for Lot 14 (Job 5042) not received as scheduled. Lender history suggests 3 business day delay. Recommend: no discretionary A/P releases without CFO approval.",
+      "inflow_detail": [
+        { "source": "Construction Lender Draw — Job 5042 DELAYED", "amount": 0, "type": "lender_draw", "flag": "DELAYED — expected $168K; confirm with lender" },
+        { "source": "Homebuyer Closing — Lot 31 Maplewood", "amount": 84000, "type": "closing" }
+      ],
+      "outflow_detail": [
+        { "source": "Subcontract Run — Plumbing rough-in", "amount": 98000, "type": "subcontract" },
+        { "source": "Material invoices — insulation", "amount": 58000, "type": "material" },
+        { "source": "Overhead / G&A", "amount": 33000, "type": "overhead" },
+        { "source": "F5116 committed conversion — Job 5042, 5039", "amount": 52000, "type": "committed" }
+      ]
+    },
+    {
+      "week": 4,
+      "label": "May 26–30",
+      "ar_inflows": 442000,
+      "ap_outflows": 215000,
+      "committed_outflows": 28000,
+      "net": 199000,
+      "running_balance": 1355000,
+      "high_variance_flag": true,
+      "variance_note": "⚠ HIGH VARIANCE — Single inflow (Job 5042 draw + 2 closings) represents 87% of week total. Flag for monitoring.",
+      "inflow_detail": [
+        { "source": "Construction Lender Draw — Job 5042 (recovered)", "amount": 168000, "type": "lender_draw" },
+        { "source": "Homebuyer Closing — Lot 18 Ridgeline", "amount": 142000, "type": "closing" },
+        { "source": "Homebuyer Closing — Lot 3 Summit View", "amount": 98000, "type": "closing" },
+        { "source": "Misc A/R", "amount": 34000, "type": "other" }
+      ],
+      "outflow_detail": [
+        { "source": "Subcontract Run — Drywall / finish", "amount": 124000, "type": "subcontract" },
+        { "source": "Material invoices — flooring", "amount": 63000, "type": "material" },
+        { "source": "Overhead / G&A", "amount": 28000, "type": "overhead" },
+        { "source": "F5116 committed conversion — Job 5047", "amount": 28000, "type": "committed" }
+      ]
+    },
+    {
+      "week": 5,
+      "label": "Jun 2–6",
+      "ar_inflows": 198000,
+      "ap_outflows": 171000,
+      "committed_outflows": 41000,
+      "net": -14000,
+      "running_balance": 1341000,
+      "high_variance_flag": false,
+      "variance_note": null
+    },
+    {
+      "week": 6,
+      "label": "Jun 9–13",
+      "ar_inflows": 325000,
+      "ap_outflows": 244000,
+      "committed_outflows": 35000,
+      "net": 46000,
+      "running_balance": 1387000,
+      "high_variance_flag": false,
+      "variance_note": null
+    },
+    {
+      "week": 7,
+      "label": "Jun 16–20",
+      "ar_inflows": 267000,
+      "ap_outflows": 198000,
+      "committed_outflows": 62000,
+      "net": 7000,
+      "running_balance": 1394000,
+      "high_variance_flag": false,
+      "variance_note": null
+    },
+    {
+      "week": 8,
+      "label": "Jun 23–27",
+      "ar_inflows": 412000,
+      "ap_outflows": 289000,
+      "committed_outflows": 44000,
+      "net": 79000,
+      "running_balance": 1473000,
+      "high_variance_flag": true,
+      "variance_note": "⚠ HIGH VARIANCE — Quarter-end draw concentration. Single lender draw represents 74% of week inflows."
+    },
+    {
+      "week": 9,
+      "label": "Jun 30–Jul 4",
+      "ar_inflows": 88000,
+      "ap_outflows": 142000,
+      "committed_outflows": 18000,
+      "net": -72000,
+      "running_balance": 1401000,
+      "high_variance_flag": true,
+      "variance_note": "⚠ HIGH VARIANCE — Holiday week. Reduced closings; normal outflows continue. Low inflow week."
+    },
+    {
+      "week": 10,
+      "label": "Jul 7–11",
+      "ar_inflows": 349000,
+      "ap_outflows": 221000,
+      "committed_outflows": 47000,
+      "net": 81000,
+      "running_balance": 1482000,
+      "high_variance_flag": false,
+      "variance_note": null
+    },
+    {
+      "week": 11,
+      "label": "Jul 14–18",
+      "ar_inflows": 278000,
+      "ap_outflows": 204000,
+      "committed_outflows": 39000,
+      "net": 35000,
+      "running_balance": 1517000,
+      "high_variance_flag": false,
+      "variance_note": null
+    },
+    {
+      "week": 12,
+      "label": "Jul 21–25",
+      "ar_inflows": 318000,
+      "ap_outflows": 267000,
+      "committed_outflows": 55000,
+      "net": -4000,
+      "running_balance": 1513000,
+      "high_variance_flag": false,
+      "variance_note": null
+    },
+    {
+      "week": 13,
+      "label": "Jul 28–Aug 1",
+      "ar_inflows": 389000,
+      "ap_outflows": 241000,
+      "committed_outflows": 48000,
+      "net": 100000,
+      "running_balance": 1613000,
+      "high_variance_flag": false,
+      "variance_note": null
+    }
+  ],
+  "summary": {
+    "total_inflows_13wk": 3745000,
+    "total_outflows_13wk": 3316000,
+    "net_13wk_change": 373000,
+    "closing_balance_week13": 1613000,
+    "high_variance_weeks": [3, 4, 8, 9],
+    "negative_net_weeks": [3, 5, 9, 12],
+    "minimum_balance_week": 3,
+    "minimum_balance_amount": 1156000
+  }
+}
