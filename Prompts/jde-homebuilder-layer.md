@@ -2,14 +2,14 @@
 ## 10x Senior BSA Prompt Library — Module 2
 
 [![Made by Erwin Maurice McDonald](https://img.shields.io/badge/Made%20by-Erwin%20Maurice%20McDonald-0A0A23?style=for-the-badge&logo=anthropic&logoColor=white)](https://epochframeworks.com)
-[![Module](https://img.shields.io/badge/Module-JDE%20E1%20%2B%20Homebuilder-FF6B35?style=for-the-badge)](https://epochframeworks.com)
+[![Module](https://img.shields.io/badge/Module-JDE%20E1%20%2B%20Homebuilder%20%2B%20Finance-FF6B35?style=for-the-badge)](https://epochframeworks.com)
 [![Extends](https://img.shields.io/badge/Extends-10x%20BSA%20Prompt%20Library%20v1.1-blue?style=for-the-badge)](https://epochframeworks.com)
 [![License](https://img.shields.io/badge/License-DACR%20v2.6-critical?style=for-the-badge)](https://epochframeworks.com)
 [![Year](https://img.shields.io/badge/McDonald-2026-red?style=for-the-badge)](https://epochframeworks.com)
 
 ---
 
-> **Why this module exists.** The base 10x BSA skill names JDE E1 as a persona credential but carries no transaction-level depth. Anyone who actually ran P4210, wrote a DREAM Writer UBE, or managed a Tools 9.2 Orchestrator knows the difference. This extension fixes that gap — and goes further, layering in the construction and homebuilder-specific JDE E1 modules (Job Cost, Subcontract Management, Service Billing, Real Estate) that define the stack for mid-market and regional homebuilders running E1 as their system of record.
+> **Why this module exists.** The base 10x BSA skill names JDE E1 as a persona credential but carries no transaction-level depth. Anyone who actually ran P4210, wrote a DREAM Writer UBE, or managed a Tools 9.2 Orchestrator knows the difference. This extension fixes that gap — and goes further, layering in the construction and homebuilder-specific JDE E1 modules (Job Cost, Subcontract Management, Service Billing, Real Estate) that define the stack for mid-market and regional homebuilders running E1 as their system of record. v2.1 adds the Finance module gap map and prompts at the same transaction-level depth — GL/AR/AP/FA/Intercompany — because the Controller and CFO are in every homebuilder conversation.
 >
 > Every prompt is written from inside the system. Not from a vendor overview. Not from a certification exam. From the floor.
 
@@ -18,8 +18,10 @@
 ## Table of Contents
 
 - [JDE E1 Gap Map — Transaction-Level](#-jde-e1-gap-map--transaction-level)
+- [JDE Finance Module Gap Map](#-jde-finance-module-gap-map)
 - [Homebuilder Module Overlay](#-homebuilder-module-overlay)
 - [JDE E1 Prompts](#-jde-e1-prompts)
+- [JDE Finance Prompts](#-jde-finance-prompts)
 - [JDE E1 × Homebuilder Prompts](#-jde-e1--homebuilder-prompts)
 - [AI Readiness Scoring — JDE Homebuilder Edition](#-ai-readiness-scoring--jde-homebuilder-edition)
 
@@ -45,6 +47,30 @@
 | User adoption was chronically low because JDE's role-based menus (P09012 / Solution Explorer) did not surface the right transaction based on what the user was actually doing | Solution Explorer, Fast Path codes, P09012 (Menu Design) | AI copilots surface the right P-program, fast path code, or next step based on current user context — reducing dependency on trained power users |
 | Period close (AAIs — Automatic Accounting Instructions) errors were discovered post-close; AAI misconfiguration (P00121) produced silent G/L posting errors | P00121 (AAI Revisions), F0012 (AAI Table), F0911 (Account Ledger) | AI validates AAI configuration against posting patterns before close runs, flags mismatches before the R09801 (G/L Post) executes |
 | Forecasting required manual data pulls from F0902 (Account Balances), Excel modeling, and significant BSA time; no continuous forecast from live E1 data | F0902 (Account Balances), F5116 (Job Cost Summary), P51901 | AI-native forecasting runs continuously on F0902 and F5116 with configurable confidence intervals — no manual pull |
+
+---
+
+## 💰 JDE Finance Module Gap Map
+
+[![JDE](https://img.shields.io/badge/JDE-Finance%20Module-FF6B35?style=flat-square)](https://oracle.com)
+[![Modules](https://img.shields.io/badge/Modules-GL%20%7C%20AR%20%7C%20AP%20%7C%20FA%20%7C%20Intercompany-orange?style=flat-square)](https://oracle.com)
+[![Depth](https://img.shields.io/badge/Depth-Transaction%20Level%20%2B%20AAI%20%2B%20Period%20Close-success?style=flat-square)](https://epochframeworks.com)
+
+> Core Finance objects: General Ledger (F0911, F0902), Accounts Receivable (F03B11, F03B14), Accounts Payable (F0411, F0413), Fixed Assets (F1202, F1201), and the AAI table (F0012) that governs how every financial transaction posts. This is where period close pain, audit exposure, and Controller capacity constraints live. Every row is transaction-level — no module summaries.
+
+| JDE Finance Limitation | JDE Object / Transaction | AI Capability That Closes It |
+|---|---|---|
+| G/L account reconciliation required a BSA or Controller to manually pull F0911 by business unit, object, and subsidiary, then compare to subledger totals in Excel — a multi-day close task | F0911 (Account Ledger), F0902 (Account Balances), P09200 (G/L Inquiry) | AI reconciles F0911 to subledger balances continuously, surfaces out-of-balance conditions by account and business unit before close runs, and flags the originating document |
+| Budget vs. actual variance reporting required a custom DREAM Writer UBE (R09xxx) or BI Publisher layout; business users could not pull their own variance without IT | R09801 (G/L Post), R097001 (Trial Balance), custom R09xxx via DREAM Writer, F0902 | AI queries F0902 and F0911 in natural language — "show me variances over 10% for cost center 500 YTD" — without a report layout or UBE job submission |
+| AAI misconfiguration (P00121) produced silent G/L posting errors; errors were discovered post-close when the R09801 G/L Post had already run | P00121 (AAI Revisions), F0012 (AAI Table), F0911, R09801 (G/L Post) | AI validates AAI configuration against live posting patterns before the close cycle — flags object/subsidiary mismatches, missing AAI codes, and intercompany offset gaps before R09801 executes |
+| A/R aging (R03B500) was a point-in-time batch report; collections prioritization required a collector to manually work the aging and use judgment to sequence outreach | R03B500 (A/R Aging), F03B11 (Customer Ledger), F03B14 (Receipts), P03B2002 (Credit/Collections) | AI prioritizes collections dynamically — scoring open invoices by days overdue, customer payment history (F03B14), dispute frequency, and balance size — and drafts outreach sequencing before the collector opens the aging |
+| A/P aging and cash requirement forecasting (R04413) required manual extraction and Excel modeling; payment run timing was based on due dates alone, not cash position | R04413 (A/P Aging), F0411 (A/P Ledger), F0413 (A/P Matching), P04572 (Payment Processing) | AI models cash requirements from open F0411 balances, forecasts payment run impact against F0902 cash accounts, and flags early-pay discount opportunities before the P04572 payment run is released |
+| Intercompany eliminations required manual journal entries (P09101) across business units; errors created audit findings and required a senior accountant to untangle | P09101 (Journal Entry), F0911 by Business Unit, P09106 (Intercompany Settlement) | AI identifies intercompany imbalances across business units in F0911 before period close, drafts elimination journal entries, and flags transactions without matching offsets |
+| Fixed asset depreciation batch (R12855) ran on a schedule; no one validated that the asset master (F1201) was current before the depreciation run — retired or transferred assets continued depreciating silently | R12855 (Depreciation), F1202 (Asset Balance), F1201 (Asset Master), P12102 (Asset Master Revisions) | AI audits F1201 for assets flagged as disposed or transferred that still carry an active depreciation method — fires pre-run validation before R12855 executes, quantifying the at-risk depreciation amount |
+| Cash flow forecasting required a BSA to manually combine A/R aging (F03B11), A/P aging (F0411), and job cost committed costs (F5116) into a rolling 13-week model in Excel | F03B11, F0411, F5116, F0902 | AI maintains a continuous rolling cash forecast from live E1 data — combining receivables, payables, and committed job costs — with configurable confidence bands and variance alerts when actuals diverge from forecast |
+| Period close checklists were managed in email or SharePoint; no system visibility into which close tasks were complete, in progress, or blocked | No native close workflow in JDE; close tasks managed outside E1 | AI tracks period close task status against a defined checklist, surfaces blocked items with owner and elapsed time, and generates a controller-ready close status report on demand |
+
+> **Finance module TRAIGA flag:** AI-assisted journal entry drafting, automated payment run sequencing, and cash flow forecasting that influences disbursement decisions are all consequential financial decision contexts under TRAIGA. Model ownership, review cadence, and exception override documentation required before deployment.
 
 ---
 
@@ -219,6 +245,168 @@ Produce the following:
    - Escalation: any job with variance > 20% triggers a separate notification to the CFO
 
 5. TRAIGA COMPLIANCE FLAG — If this AI report is used to make draw approval decisions or subcontractor payment holds, identify the TRAIGA documentation obligations that apply and what the BSA must produce before this goes to production.
+```
+
+---
+
+## 💰 JDE Finance Prompts
+
+[![JDE](https://img.shields.io/badge/JDE-Finance%20Module-FF6B35?style=for-the-badge)](https://oracle.com)
+[![Modules](https://img.shields.io/badge/Modules-GL%20%7C%20AR%20%7C%20AP%20%7C%20FA%20%7C%20Intercompany-orange?style=flat-square)](https://oracle.com)
+[![Audience](https://img.shields.io/badge/Audience-Controller%20%7C%20CFO%20%7C%20AP%20Manager-success?style=flat-square)](https://epochframeworks.com)
+
+---
+
+### FIN-01 — Rolling Cash Flow Forecast Built from Live JDE Finance Data
+
+[![Module](https://img.shields.io/badge/Module-GL%20%7C%20AR%20%7C%20AP%20%7C%20Job%20Cost-FF6B35?style=flat-square)](https://oracle.com)
+[![Object](https://img.shields.io/badge/Object-F03B11%20%7C%20F0411%20%7C%20F5116%20%7C%20F0902-orange?style=flat-square)](https://oracle.com)
+[![Legacy%20Gap](https://img.shields.io/badge/Legacy%20Gap-13--Week%20Cash%20Model%20Built%20Manually%20in%20Excel-red?style=flat-square)]()
+[![AI%20Closes](https://img.shields.io/badge/AI%20Closes-Continuous%20Forecast%20from%20Live%20E1%20Data-success?style=flat-square)]()
+
+**The Old World:** The CFO's rolling 13-week cash forecast was a Friday afternoon exercise. Someone — usually the Controller or a senior accountant — pulled A/R aging from R03B500, A/P aging from R04413, open committed costs from a custom F5116 extract, and stitched them together in a Excel model that was already 48 hours stale by Monday morning. When a draw was delayed or a subcontractor payment run hit early, nobody found out until the bank balance said so.
+
+**The Prompt:**
+
+```
+You are a Senior JDE EnterpriseOne BSA and AI Adoption Architect working with a homebuilder running JDE E1 as their ERP. The CFO has said: "I want a cash position I can trust on Monday morning without waiting for the Controller to build it." Build the system.
+
+Produce the following:
+
+1. DATA ARCHITECTURE MAP — Identify every JDE table required for a rolling 13-week cash forecast and specify the exact fields needed from each:
+   - F03B11 (Customer Ledger — A/R): open invoice amount (AAP), due date (DDJ), customer (AN8), pay status (PST) — filter: PST not in ('P', 'V', '#')
+   - F0411 (A/P Ledger): open voucher amount (AAAP), due date (DDJ), vendor (AN8), pay status (PST), payment method (PYME) — filter: PST = 'A' (approved, unpaid)
+   - F5116 (Job Cost Summary): committed costs (AC ledger type) by job (MCU) and cost code — these are cash obligations not yet in A/P
+   - F0902 (Account Balances): current cash account balances by business unit and object account — identify the account range that represents operating cash
+   - Define the join and aggregation logic to combine these four sources into a weekly cash flow schedule (inflows by week, outflows by week, net position)
+
+2. FORECAST MODEL SPECIFICATION — Write the requirements for the AI-native forecast engine:
+   - Inflow logic: bucket F03B11 open invoices by due date into weekly bands (Week 1–13); apply a collection lag factor by customer segment (construction lender draw = lag 5–7 business days after submission; homebuyer closing = lag 1–2 days; other = historical average from F03B14 payment history)
+   - Outflow logic: bucket F0411 approved vouchers by due date into weekly bands; layer in F5116 committed costs estimated to convert to A/P within the forecast window (use job phase schedule as the conversion trigger if available, or a 30-day default)
+   - Cash position: F0902 current balance as the opening balance for Week 1; net each week forward
+   - Confidence band: flag any week where the forecast depends on a single inflow event exceeding 20% of the weekly total — mark as high-variance
+
+3. VARIANCE ALERT SPECIFICATION — Write the business requirements for an AI agent that fires when actuals diverge from the prior week's forecast by more than a defined threshold:
+   - Trigger: weekly comparison of actual cash movement (F0902 period change) vs. forecast from prior week
+   - Alert condition: actual net cash position deviates from forecast by more than 10% in either direction
+   - Output: plain-language explanation — "Week 3 cash position is $84,000 below forecast. Primary driver: construction draw for Lot 14 (Job 5042) not received as scheduled. Projected receipt date based on lender history: 3 business days. Recommend: no discretionary A/P releases this week without CFO approval."
+   - Automation verdict: AUGMENT — agent explains the variance; CFO decides the response
+
+4. CONTROLLER HANDOFF SPEC — Define the format and cadence for the weekly forecast package delivered to the Controller and CFO:
+   - Delivery: Monday 6 AM — before the week's first A/P release decision
+   - Format: executive summary (3 sentences — current position, biggest inflow risk, biggest outflow risk) + weekly cash flow table (13 weeks) + flagged high-variance weeks with plain-language explanation
+   - Archive requirement: each week's forecast is retained for 12 months for lender audit purposes
+
+5. TRAIGA AND GOVERNANCE FLAGS — If the cash forecast influences draw submission timing or A/P hold decisions, identify:
+   - Is automated cash-position-based A/P hold a consequential financial decision under TRAIGA?
+   - What documentation must the CFO maintain to demonstrate that AI-generated cash forecasts are reviewed by a human before influencing payment decisions?
+   - Who is the named model owner, and what is the recalibration trigger if forecast accuracy falls below 85% for two consecutive months?
+```
+
+---
+
+### FIN-02 — Fixed Asset Depreciation Audit and Pre-Run Validation
+
+[![Module](https://img.shields.io/badge/Module-Fixed%20Assets%20%7C%20FIN-FF6B35?style=flat-square)](https://oracle.com)
+[![Object](https://img.shields.io/badge/Object-R12855%20%7C%20F1201%20%7C%20F1202%20%7C%20P12102-orange?style=flat-square)](https://oracle.com)
+[![Legacy%20Gap](https://img.shields.io/badge/Legacy%20Gap-Retired%20Assets%20Depreciating%20Silently%20Until%20Audit-red?style=flat-square)]()
+[![AI%20Closes](https://img.shields.io/badge/AI%20Closes-Pre--Run%20Asset%20Master%20Validation%20Before%20R12855-success?style=flat-square)]()
+
+**The Old World:** The depreciation batch (R12855) ran on the first of the month. Nobody checked the asset master (F1201) first. Equipment that had been sold six months ago was still depreciating. A truck that was totaled and written off in the general ledger still had an active depreciation method in Fixed Assets. The auditor found it. The Controller fixed it retroactively. This happened every year.
+
+**The Prompt:**
+
+```
+You are a Senior JDE EnterpriseOne BSA with deep experience in the JDE Fixed Assets module — specifically the asset master (F1201/P12102), asset balances (F1202), the depreciation computation UBE (R12855), and the integration between Fixed Assets and the General Ledger via AAI items FA and FX.
+
+The Controller has said: "Every quarter audit, we find assets that shouldn't be depreciating. I want to catch them before R12855 runs, not after." Build the pre-run validation system.
+
+Produce the following:
+
+1. ASSET MASTER RISK INVENTORY — Identify every condition in F1201 that indicates an asset should not be depreciating but still carries an active depreciation method. For each condition, specify the F1201 field, the value that signals the risk, and the depreciation impact:
+   - Disposal status: F1201.ADAS (Asset Disposal Status) — any value indicating sold, scrapped, or donated, where F1201.DPDM (Depreciation Method) is not blank
+   - Transfer status: assets transferred to a different business unit or company where the receiving entity's depreciation record has not been created in F1202
+   - Fully depreciated: F1202 net book value = zero or negative, where R12855 will still run and produce a zero or error posting
+   - Lease expiration: F1201 lease end date is in the past, where the asset should have been returned or purchased — depreciation continuation is an accounting policy question, not a system default
+   - Orphaned assets: assets in F1201 with no corresponding GL account posting in F0911 in the trailing 12 months — possible data entry error at acquisition
+
+2. PRE-RUN VALIDATION QUERY LOGIC — Write the business requirements for an AI agent that audits F1201 against these conditions before each R12855 run:
+   - Scan scope: all assets with depreciation method not blank AND asset status not = fully retired
+   - Flag criteria: any of the five conditions above
+   - Output: exception list delivered to the Controller 48 hours before the scheduled R12855 run — format: "Asset 10042 (2021 Ford F-250 — Fleet): disposal status = Sold (03/2025), depreciation method still active. Projected depreciation this period: $312. Recommend: P12102 update before R12855 runs."
+   - Automation verdict: AUGMENT — agent flags; Controller approves correction before run
+
+3. GL RECONCILIATION SPEC — Write the query logic to reconcile F1202 (Asset Balances) to F0911 (Account Ledger) for the fixed asset account range:
+   - Compare F1202 net book value by asset class to F0911 account balance for the corresponding fixed asset GL object accounts
+   - Flag any variance exceeding $500 or 1% of the asset class total, whichever is smaller
+   - Identify the AAI items (FA series) that govern the posting from Fixed Assets to G/L — flag any AAI that maps to an account outside the expected fixed asset range
+
+4. ORCHESTRATOR NOTIFICATION SPEC — Write the business requirements for a monthly Orchestrator notification that fires 5 business days before the scheduled R12855 depreciation run:
+   - Trigger: calendar-based — 5 business days before month-end R12855 scheduled date
+   - Validation run: execute the F1201 audit logic described in section 2
+   - Output: notification to Controller with exception count, total at-risk depreciation amount, and link to the exception list
+   - Escalation: if exception count exceeds 10 assets or at-risk depreciation exceeds $5,000, copy the CFO
+
+5. AUDIT TRAIL REQUIREMENT — Specify the documentation the Controller must maintain to satisfy an external auditor's questions about the pre-run validation process:
+   - What was flagged, by whom, and when
+   - What correction was made in P12102 before R12855 ran
+   - Who approved the correction
+   - What the R12855 output showed after the correction — reconciled net book value change vs. prior period
+```
+
+---
+
+### FIN-03 — A/R Collections Intelligence: From Aging Report to Prioritized Outreach
+
+[![Module](https://img.shields.io/badge/Module-Accounts%20Receivable%20%7C%20FIN-FF6B35?style=flat-square)](https://oracle.com)
+[![Object](https://img.shields.io/badge/Object-R03B500%20%7C%20F03B11%20%7C%20F03B14%20%7C%20P03B2002-orange?style=flat-square)](https://oracle.com)
+[![Legacy%20Gap](https://img.shields.io/badge/Legacy%20Gap-Point--in--Time%20Aging%20Report%20Worked%20Manually-red?style=flat-square)]()
+[![AI%20Closes](https://img.shields.io/badge/AI%20Closes-Dynamic%20Collections%20Scoring%20from%20Live%20F03B11%20Data-success?style=flat-square)]()
+
+**The Old World:** The A/R aging report (R03B500) ran on Monday morning. The collector printed it — or pulled it as a PDF — and worked down the list by balance size. The customer with the biggest balance got the first call, regardless of payment history, dispute status, or the fact that they always paid on Day 42 and today was Day 38. The customer who was genuinely at risk of not paying got the call after the easy ones. Collections was reactive by design.
+
+**The Prompt:**
+
+```
+You are a Senior JDE EnterpriseOne BSA with deep experience in Accounts Receivable — specifically F03B11 (Customer Ledger), F03B14 (Receipts), P03B2002 (Credit and Collections), R03B500 (A/R Aging), and the integration between A/R and the construction draw process for a homebuilder.
+
+The CFO has said: "I want to know which receivables are actually at risk — not just which ones are the biggest." Build the collections intelligence system.
+
+Produce the following:
+
+1. DATA INVENTORY — Identify every field in JDE A/R that carries a signal relevant to collection risk. For each field, specify the table, the field name, and the risk signal it carries:
+   - F03B11 (Customer Ledger): invoice amount (AAP), due date (DDJ), pay status (PST), invoice date (DIVJ), document type (DCT) — distinguish between construction lender draws (DCT = RB or custom draw type) and buyer closing proceeds vs. standard invoices
+   - F03B14 (Receipts): historical payment date vs. due date by customer — calculate average payment lag by customer AN8 across trailing 12 months
+   - P03B2002 (Credit/Collections): any existing hold flags, dispute codes, collector notes
+   - Custom fields or Z-table: draw submission date, lender name, expected funding SLA (if tracked outside JDE)
+
+2. COLLECTIONS SCORING MODEL — Build a collection risk score (0–100, higher = higher risk) with four weighted dimensions:
+   - DAYS OVERDUE SEVERITY (35 pts): 0 pts = not yet due; 10 pts = 1–15 days; 20 pts = 16–30 days; 30 pts = 31–60 days; 35 pts = 60+ days. Source: F03B11.DDJ vs. today.
+   - PAYMENT HISTORY (30 pts): average payment lag from F03B14 for this customer over trailing 12 months. Score 0 = customer always pays within terms; score 30 = customer has paid 30+ days late on 50%+ of prior invoices.
+   - BALANCE CONCENTRATION (20 pts): this invoice as a percent of total open A/R. Score 20 = single invoice represents more than 25% of total open balance — concentration risk. Score 0 = less than 5%.
+   - DISPUTE FLAG (15 pts): any open dispute code in P03B2002 adds 15 pts flat — dispute invoices are categorically higher risk regardless of aging.
+
+3. OUTREACH PRIORITIZATION OUTPUT — Write the specification for the weekly collections priority list delivered to the collector each Monday:
+   - Sort: by collection risk score descending — not by balance size
+   - For each invoice, surface: customer name, invoice number, balance, days overdue, risk score, top risk driver (one sentence), and recommended first action ("Call AP contact — payment lag history averages 38 days; invoice is at Day 35. Likely to pay this week without escalation." vs. "Escalate to CFO — invoice is 62 days overdue with open dispute flag. Recommend formal demand letter.")
+   - Flag any invoice where the customer is a construction lender: draw funding delays follow a different process (re-submission, not collections call) — route to the draw coordinator, not the collector
+
+4. AUTOMATED OUTREACH DRAFT SPEC — Write the requirements for an AI agent that drafts the first outreach message for each prioritized invoice:
+   - Input: customer name, invoice number, balance, days overdue, prior payment history summary, any open dispute notes
+   - Output: a draft email or phone script — not a generic template. Tone calibrated to risk score: Score < 50 = friendly reminder; Score 50–75 = firm follow-up; Score > 75 = formal demand language
+   - Automation verdict: AUGMENT — agent drafts; collector reviews and sends. Never auto-send.
+   - Constraint: no outreach draft for invoices flagged as disputed until the dispute is resolved or escalated — drafting a demand letter against a disputed invoice is a legal exposure
+
+5. CONTROLLER DASHBOARD SPEC — Define the weekly A/R intelligence summary the Controller sees (not the collector's working list):
+   - Total open A/R balance, broken into: current, 1–30 days, 31–60 days, 60+ days
+   - Count and value of invoices with risk score > 75 — the Controller's watch list
+   - DSO (Days Sales Outstanding) trend: current period vs. prior 3 periods, calculated from F03B11 and F03B14
+   - Any customer whose open balance has increased by more than 20% week-over-week without a corresponding new invoice — possible data entry error or unapplied receipt
+
+6. TRAIGA FLAG — If the collections scoring model influences credit hold decisions (blocking new invoices or draw submissions for customers with high risk scores), identify the governance requirements:
+   - Is an AI-generated credit hold a consequential decision under TRAIGA?
+   - What notification, if any, must be provided to the customer before a credit hold takes effect?
+   - Who is the named owner of the collections scoring model and what is the review cadence?
 ```
 
 ---
@@ -475,10 +663,13 @@ This extension module is designed to be used alongside the base `10x-bsa-prompt-
 - **Period close G/L integrity issues** → `JDE-01` (AAI Validation)
 - **AP payment automation request** → `JDE-02` (Orchestrator A/P spec)
 - **Reporting self-service request from a VP or PM** → `JDE-03` (DREAM Writer replacement)
+- **Rolling cash flow forecast request from CFO** → `FIN-01` (Cash Flow Forecast)
+- **Fixed asset depreciation audit or month-end prep** → `FIN-02` (Fixed Asset Pre-Run Validation)
+- **Collections prioritization or DSO improvement** → `FIN-03` (A/R Collections Intelligence)
 
 **All prompts assume JDE Tools 9.2+.** If the client is on an earlier Tools release, Orchestrator Studio is not available — flag this and substitute a workflow (P98806) spec or an external notification layer.
 
-**Methodology protection applies.** TPPS scoring weights, the Permit Carry Cost model, and the Homebuilder Readiness Assessment scoring criteria are proprietary to Epoch Frameworks LLC under DACR License v2.6.
+**Methodology protection applies.** TPPS scoring weights, the Permit Carry Cost model, the Homebuilder Readiness Assessment scoring criteria, and the Finance collections scoring model are proprietary to Epoch Frameworks LLC under DACR License v2.6.
 
 ---
 
